@@ -1,0 +1,31 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+  hostmetrics:
+    collection_interval: 1m
+    scrapers:
+      load:
+        cpu_average: true
+  uptime:
+    interval: 5s
+
+processors:
+  batch:
+
+exporters:
+  debug:
+    verbosity: detailed
+  file:
+    path: /dev/stdout
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp, hostmetrics, uptime]
+      processors: [batch]
+      exporters: [debug, file]
+  telemetry:
+    logs:
+      level: debug

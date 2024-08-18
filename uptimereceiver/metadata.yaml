@@ -1,0 +1,22 @@
+type: uptime
+
+status:
+  class: receiver
+  stability:
+    alpha: [metrics]
+  distributions: [contrib]
+
+#attributes:
+#  hostname:
+#    description: Hostname of the machine
+#    type: string
+
+metrics:
+  uptime:
+    enabled: true
+    description: System uptime in seconds
+    unit: seconds
+    gauge:
+      value_type: int
+#    attributes:
+#      - hostname
