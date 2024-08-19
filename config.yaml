@@ -9,7 +9,7 @@ receivers:
       load:
         cpu_average: true
   uptime:
-    interval: 5s
+    collection_interval: 5s
 
 processors:
   batch:

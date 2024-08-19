@@ -6,10 +6,19 @@ status:
     alpha: [metrics]
   distributions: [contrib]
 
-#attributes:
-#  hostname:
-#    description: Hostname of the machine
-#    type: string
+attributes:
+  hostname:
+    description: Hostname of the machine
+    type: string
+  os:
+    description: Operating system of the machine
+    type: string
+  arch:
+    description: Architecture of the machine
+    type: string
+  type:
+    description: Type of the metric
+    type: string
 
 metrics:
   uptime:
@@ -18,5 +27,8 @@ metrics:
     unit: seconds
     gauge:
       value_type: int
-#    attributes:
-#      - hostname
+    attributes:
+      - hostname
+      - os
+      - arch
+      - type
