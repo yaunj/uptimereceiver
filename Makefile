@@ -7,9 +7,6 @@ ocb:
 	https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/cmd%2Fbuilder%2Fv0.107.0/ocb_0.107.0_linux_amd64
 	@chmod +x ocb
 
-otelcol-dev/otelcol-dev: ocb builder-config.yaml $(SOURCES)
-	./ocb --config builder-config.yaml
-
 .PHONY: mdatagen
 mdatagen:
 	cd uptimereceiver && $(GO) get go.opentelemetry.io/collector/cmd/mdatagen
@@ -17,6 +14,12 @@ mdatagen:
 .PHONY: generate
 generate: mdatagen
 	cd uptimereceiver && $(GO) generate ./...
+
+uptimereceiver/internal/metadata: uptimereceiver/metadata.yaml
+	@make generate
+
+otelcol-dev/otelcol-dev: ocb builder-config.yaml $(SOURCES) uptimereceiver/internal/metadata
+	./ocb --config builder-config.yaml
 
 .PHONY: test
 test: otelcol-dev/otelcol-dev
