@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/mackerelio/go-osstat/uptime"
 	"github.com/yaunj/uptimereceiver/uptimereceiver/internal/metadata"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -28,7 +29,7 @@ func newScraper(cfg *Config, settings receiver.Settings) *scraper {
 func (s *scraper) scrape(_ context.Context) (pmetric.Metrics, error) {
 	s.logger.Debug("Getting uptime")
 
-	uptime, err := getUptime()
+	uptime, err := uptime.Get()
 	if err != nil {
 		s.logger.Error("Failed to get uptime", zap.Error(err))
 		return pmetric.Metrics{}, err
